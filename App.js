@@ -1,20 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 
+import * as firebase from 'firebase/app'
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDqyq-SSZma6cqGXF9BbbUn7WZ-OM9T_X0",
+  authDomain: "instagram-dev-f29b1.firebaseapp.com",
+  projectId: "instagram-dev-f29b1",
+  storageBucket: "instagram-dev-f29b1.appspot.com",
+  messagingSenderId: "497931752956",
+  appId: "1:497931752956:web:772d04c8a6ebf8f2438e79",
+  measurementId: "G-WR5QER1NHS"
+};
+
+firebase.initializeApp(firebaseConfig)
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import LandingScreen from './components/auth/Landing';
+
+const Stack = createStackNavigator();
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Landing'>
+        <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
