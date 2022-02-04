@@ -3,7 +3,8 @@ import { View, Button, TextInput } from 'react-native';
 
 import * as firebase from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-
+import { getFirestore } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 export class Register extends Component {
 
     constructor(props) {
@@ -18,9 +19,25 @@ export class Register extends Component {
     }
 
     onSignUp() {
+        const db = getFirestore();
         const auth = getAuth();
         const { email, password, name } = this.state;
-        createUserWithEmailAndPassword(auth, email, password).then((result) => { console.log(result) }).catch((error) => { console.log(error) });
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(async (result) => {
+                try {
+                    await setDoc(doc(db, "users", auth.currentUser.uid), {
+                            name,
+                            email
+                        });
+                    console.log(result)
+                } catch (error) {
+                    console.log("This is the error: ", error)
+                }
+
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     }
 
     render() {
