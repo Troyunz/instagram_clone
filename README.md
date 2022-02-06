@@ -21,7 +21,7 @@
 
 ## ℹ️ About The Project
 
-![alt text](images/mockup.png "Title")
+![alt text](mockup.png "Title")
 
 This project is a clone of the Instagram android app.
 
